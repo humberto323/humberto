@@ -1,0 +1,30 @@
+const  { addonBuilder , serveHTTP , publishingToCentral }   =  require ( 'stremio-addon-sdk' )
+
+const  builder  =  new  addonBuilder ( { 
+    id : 'org.myexampleaddon' , 
+    versión : '1.0.0' ,
+
+    nombre : 'ejemplo simple' ,
+
+    // Propiedades que determinan cuándo Stremio elige este complemento 
+    // esto significa que su complemento se utilizará para secuencias del tipo de 
+    catálogos de películas : [ ] , 
+    recursos : [ 'secuencia' ] , 
+    tipos : [ 'película' ] , 
+    idPrefixes : [ ' tt ' ] 
+} )
+
+// toma el 
+constructor de funciones (args) . defineStreamHandler ( function ( args )  { 
+    if  ( args . type  ===  'movie'  &&  args . id  ===  'tt1254207' )  { 
+        // sirve una secuencia para big buck bunny 
+        const  stream  =  {  url : 'http: // distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4 '  } 
+        return  Promise . resolve ( {  streams : [stream ]  } ) 
+    }  else  { 
+        // de lo contrario no 
+        devuelve  streams return Promise . resolver ( {  secuencias : [ ]  } ) 
+    } 
+} )
+
+serveHTTP ( constructor . getInterface ( ) ,  {  puerto : proceso . env . PUERTO  ||  7000  } ) 
+//publishToCentral("https://your-domain/manifest.json ") // <- invoque esto si desea publicar su complemento y es accesible públicamente en "su dominio"
